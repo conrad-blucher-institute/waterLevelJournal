@@ -59,6 +59,27 @@ The study uses surge as the prediction target. The harmonic tidal component is
 removed before model training and added back to the predicted surge to
 reconstruct total water level.
 
+### Extra Rows for Temporal Context
+
+Dataset files are organized by nominal year but include additional observations
+before and after the corresponding calendar year. These extra rows provide the
+temporal context required to construct model inputs and targets near the
+boundaries of each year.
+
+In particular, observations preceding the nominal year are included so that
+lagged or past observations can be constructed for samples at the beginning of
+the year. Similarly, observations following the nominal year are included so
+that forecast targets can be constructed for samples near the end of the year.
+
+For example, `bob_hall_pier_year_2008_withExtraRows.csv` contains the 2008
+dataset together with observations from late 2007 and early 2009. The additional
+rows are provided for temporal context and should not be interpreted as part of
+the nominal 2008 evaluation period.
+
+This convention makes the dataset flexible for experiments using different
+numbers of past observations and forecast lead times without losing samples at
+the beginning or end of each nominal year.
+
 ## Data Preprocessing
 
 The dataset was quality controlled and gap-filled prior to its use for machine
